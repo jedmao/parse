@@ -2,7 +2,7 @@
 
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
-[![GitHub Actions](https://github.com/jedmao/parse/workflows/master/badge.svg)](https://github.com/jedmao/parse/actions)
+[![GitHub Actions](https://github.com/jedmao/parse/workflows/Node%20CI/badge.svg?event=push)](https://github.com/jedmao/parse/actions)
 [![codecov](https://img.shields.io/codecov/c/gh/jedmao/parse?style=flat-square)](https://codecov.io/gh/jedmao/parse)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg?style=flat-square)](https://github.com/xojs/xo)
@@ -13,7 +13,8 @@
 
 <!-- markdownlint-disable commands-show-output -->
 
-Parses an INI file that conforms to the EditorConfig INI format specification.
+Parses an INI file into AST. The file must conform with the
+[EditorConfig INI format specification](https://editorconfig-specification.readthedocs.io/en/latest/).
 
 ## Scripts
 

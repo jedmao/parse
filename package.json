@@ -1,7 +1,8 @@
 {
   "name": "@editorconfig/parse",
+  "private": true,
   "version": "0.0.0",
-  "description": "A Node/TypeScript starter project.",
+  "description": "Parses an INI file into AST. The file must conform to the EditorConfig INI format specification.",
   "license": "MIT",
   "repository": "github:jedmao/parse",
   "author": "Jed Mao <jedmao@outlook.com>",
@@ -154,6 +155,6 @@
     "semantic-release": "^15",
     "ts-node": "^8",
     "tsconfig-paths": "^3",
-    "typescript": "^3"
+    "typescript": "^3.7.1-rc"
   }
 }
