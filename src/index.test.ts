@@ -1,15 +1,16 @@
 import test from 'ava'
 
-import EditorConfigAST, {
+import {
+	EditorConfigAST,
 	BlankLine,
 	Comment,
 	Property,
 	Section,
-} from './EditorConfigAST'
-import { parse } from '.'
+	parse,
+} from '.'
 
 const emptyAST: EditorConfigAST = {
-	type: 'EditorConfig',
+	type: 'EditorConfigAST',
 	version: '15.0.0',
 	children: [],
 }

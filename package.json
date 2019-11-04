@@ -68,6 +68,7 @@
       "prettier"
     ],
     "rules": {
+      "capitalized-comments": "off",
       "@typescript-eslint/explicit-function-return-type": "off"
     },
     "overrides": [

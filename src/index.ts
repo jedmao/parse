@@ -1,12 +1,11 @@
-import { readFileSync } from 'fs'
-import { join as pathJoin } from 'path'
-import { generate } from 'pegjs'
+export { default as BlankLine } from './nodes/BlankLine'
+export { default as Comment } from './nodes/Comment'
+export { default as EditorConfigAST } from './nodes/EditorConfigAST'
+export { default as Node } from './nodes/Node'
+export { default as Property } from './nodes/Property'
+export { default as Section } from './nodes/Section'
 
-import EditorConfigAST from './EditorConfigAST'
-
-const parser = generate(
-	readFileSync(pathJoin(__dirname, 'grammar.pegjs')).toString(),
-)
+import EditorConfigAST from './nodes/EditorConfigAST'
 
 /**
  * Parses an [INI file](https://en.wikipedia.org/wiki/INI_file) into
@@ -14,10 +13,5 @@ const parser = generate(
  * The file must conform with the
  * [EditorConfig INI format specification](https://editorconfig-specification.readthedocs.io/en/latest/).
  */
-export function parse(schema: string) {
-	if (typeof schema === 'string' || [null, undefined].includes(schema)) {
-		return parser.parse(schema || '') as EditorConfigAST
-	}
-
-	throw new TypeError('expected a string')
-}
+export const parse: typeof EditorConfigAST.parse = (contents: string) =>
+	EditorConfigAST.parse(contents)
