@@ -13,7 +13,9 @@
 
 <!-- markdownlint-disable commands-show-output -->
 
-Parses an INI file into AST. The file must conform with the
+Parses an [INI file](https://en.wikipedia.org/wiki/INI_file) into
+[AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree). The file must conform
+with the
 [EditorConfig INI format specification](https://editorconfig-specification.readthedocs.io/en/latest/).
 
 ## Scripts
