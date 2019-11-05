@@ -2,11 +2,7 @@ import { readFileSync } from 'fs'
 import { join as pathJoin } from 'path'
 import { generate } from 'pegjs'
 
-import BlankLine from './BlankLine'
-import Comment from './Comment'
-import Property from './Property'
-import Section from './Section'
-import Node from './Node'
+import { BlankLine, Comment, Token, Property, Section } from '..'
 
 const constructors = {
 	BlankLine,
@@ -16,15 +12,15 @@ const constructors = {
 }
 
 const parser = generate(
-	readFileSync(pathJoin(__dirname, 'grammar.pegjs')).toString(),
+	readFileSync(pathJoin(__dirname, '..', '..', 'grammar.pegjs')).toString(),
 )
 
-export default class EditorConfigAST implements Node {
-	public readonly type: 'EditorConfigAST'
+export class EditorConfigINI implements Token {
+	public readonly type: 'EditorConfigINI'
 	public readonly version: NonNullable<string>
 	public children: Array<Property | Section | Comment | BlankLine>
 
-	public constructor(ast: EditorConfigAST) {
+	public constructor(ast: Pick<EditorConfigINI, 'type' | 'version' | 'children'>) {
 		this.type = ast.type
 		this.version = ast.version
 		this.children = ast.children.map(
@@ -44,7 +40,7 @@ export default class EditorConfigAST implements Node {
 			typeof contents === 'string' ||
 			[null, undefined].includes(contents)
 		) {
-			return new EditorConfigAST(parser.parse(contents || ''))
+			return new EditorConfigINI(parser.parse(contents || ''))
 		}
 
 		throw new TypeError('expected a string')
@@ -52,5 +48,18 @@ export default class EditorConfigAST implements Node {
 
 	public toString() {
 		return this.children.map(node => node.toString()).join('')
+	}
+
+	public pretty() {
+		const blankLine = this.children.find(node => node.type === 'BlankLine')
+		const propsAndComments = this.children.filter(node =>
+			['Property', 'Comment'].includes(node.type),
+		)
+		const sections = this.children.filter(node => node.type === 'Section')
+		return prettyNodes(propsAndComments) + (blankLine?.pretty() ?? '\n') + prettyNodes(sections)
+
+		function prettyNodes(nodes: Token[]) {
+			return nodes.map(node => node.pretty()).join('')
+		}
 	}
 }

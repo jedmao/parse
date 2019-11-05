@@ -8,9 +8,13 @@
     { "language": "typescript", "autoFix": true },
     { "language": "typescriptreact", "autoFix": true }
   ],
+  "files.exclude": {
+    "src/**/*.test.ts.snap": true
+  },
   "search.exclude": {
     "**/coverge": true,
-    "**/node_modules": true
+    "**/node_modules": true,
+    "src/**/*.test.ts.md": true
   },
   "typescript.tsdk": "node_modules/typescript/lib"
 }

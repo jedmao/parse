@@ -2,7 +2,7 @@ Document =
   children:(BlankLine / Comment / Property)*
   sections:Section* {
   return {
-    type: 'EditorConfig',
+    type: 'EditorConfigINI',
     version: '15.0.0',
     children: children.concat(sections),
   }
