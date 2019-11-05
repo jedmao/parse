@@ -1,3 +1,5 @@
+import { Except } from 'type-fest'
+
 import {
 	BlankLine,
 	BlankLineAST,
@@ -17,6 +19,7 @@ const constructors = {
 }
 
 export interface SectionAST {
+	type: 'Section'
 	header: SectionHeaderAST
 	children: Array<CommentAST | PropertyAST | BlankLineAST>
 }
@@ -35,7 +38,7 @@ export class Section implements Token {
 	public header: SectionHeader
 	public children: Array<Comment | Property | BlankLine>
 
-	public constructor(ast: SectionAST) {
+	public constructor(ast: Except<SectionAST, 'type'>) {
 		this.header = new SectionHeader(ast.header)
 		this.children = ast.children.map(
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

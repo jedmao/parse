@@ -1,6 +1,9 @@
+import { Except } from 'type-fest'
+
 import { Newline, NewlineAST, Token, Raws } from '..'
 
 export interface SectionHeaderAST {
+	type: 'SectionHeader'
 	name: NonNullable<string>
 	newline: NewlineAST
 	raws: Raws
@@ -12,7 +15,7 @@ export class SectionHeader implements Token {
 	public newline: Newline
 	public raws: Raws
 
-	public constructor(ast: SectionHeaderAST) {
+	public constructor(ast: Except<SectionHeaderAST, 'type'>) {
 		this.name = ast.name
 		this.newline = new Newline(ast.newline)
 		this.raws = ast.raws

@@ -136,7 +136,8 @@
   "dependencies": {
     "@types/pegjs": "^0.10.1",
     "pegjs": "^0.10.0",
-    "tslib": "^1"
+    "tslib": "^1",
+    "type-fest": "^0.8.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^8",

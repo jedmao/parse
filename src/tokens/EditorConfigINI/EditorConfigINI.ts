@@ -1,8 +1,9 @@
 import { readFileSync } from 'fs'
 import { join as pathJoin } from 'path'
 import { generate } from 'pegjs'
+import { Except } from 'type-fest'
 
-import { BlankLine, Comment, Token, Property, Section } from '..'
+import { BlankLine, BlankLineAST, Comment, CommentAST, Token, Property, PropertyAST, Section, SectionAST } from '..'
 
 const constructors = {
 	BlankLine,
@@ -15,13 +16,18 @@ const parser = generate(
 	readFileSync(pathJoin(__dirname, '..', '..', 'grammar.pegjs')).toString(),
 )
 
+export interface EditorConfigINIAST {
+	type: 'EditorConfigINI'
+	version: string
+	children: Array<PropertyAST | SectionAST | CommentAST | BlankLineAST>
+}
+
 export class EditorConfigINI implements Token {
-	public readonly type: 'EditorConfigINI'
+	public readonly type = 'EditorConfigINI'
 	public readonly version: NonNullable<string>
 	public children: Array<Property | Section | Comment | BlankLine>
 
-	public constructor(ast: Pick<EditorConfigINI, 'type' | 'version' | 'children'>) {
-		this.type = ast.type
+	public constructor(ast: Except<EditorConfigINIAST, 'type'>) {
 		this.version = ast.version
 		this.children = ast.children.map(
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

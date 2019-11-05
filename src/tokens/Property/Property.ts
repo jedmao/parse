@@ -1,3 +1,5 @@
+import { Except } from 'type-fest'
+
 import {
 	Newline,
 	NewlineAST,
@@ -9,6 +11,7 @@ import {
 } from '..'
 
 export interface PropertyAST {
+	type: 'Property'
 	name: PropertyNameAST
 	value: PropertyValueAST
 	newline: NewlineAST
@@ -28,7 +31,7 @@ export class Property implements Token {
 	public value: PropertyValue
 	public newline: Newline
 
-	public constructor(ast: PropertyAST) {
+	public constructor(ast: Except<PropertyAST, 'type'>) {
 		this.name = new PropertyName(ast.name)
 		this.value = new PropertyValue(ast.value)
 		this.newline = new Newline(ast.newline)

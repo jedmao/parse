@@ -1,6 +1,9 @@
+import { Except } from 'type-fest'
+
 import { Newline, NewlineAST, Token, Raws } from '..'
 
 export interface CommentAST {
+	type: 'Comment'
 	indicator: '#' | ';'
 	value: NonNullable<string>
 	newline: NewlineAST
@@ -14,7 +17,7 @@ export class Comment implements Token {
 	public newline: Newline
 	public raws: CommentAST['raws']
 
-	public constructor(ast: CommentAST) {
+	public constructor(ast: Except<CommentAST, 'type'>) {
 		this.indicator = ast.indicator
 		this.value = ast.value
 		this.newline = new Newline(ast.newline)
