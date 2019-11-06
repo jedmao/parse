@@ -4,9 +4,7 @@ import { SectionHeader } from '..'
 
 const instance = new SectionHeader({
 	name: 'HEADER',
-	newline: {
-		value: '\n',
-	},
+	newline: '\n',
 	raws: {
 		before: 'BEFORE__',
 		after: '__AFTER',

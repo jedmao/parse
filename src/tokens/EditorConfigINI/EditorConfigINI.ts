@@ -3,7 +3,17 @@ import { join as pathJoin } from 'path'
 import { generate } from 'pegjs'
 import { SetOptional } from 'type-fest'
 
-import { BlankLine, BlankLineAST, Comment, CommentAST, Token, Property, PropertyAST, Section, SectionAST } from '..'
+import {
+	BlankLine,
+	BlankLineAST,
+	Comment,
+	CommentAST,
+	Token,
+	Property,
+	PropertyAST,
+	Section,
+	SectionAST
+} from '..'
 
 const constructors = {
 	BlankLine,

@@ -3,9 +3,7 @@ import test from 'ava'
 import { BlankLine } from '..'
 
 const instance = new BlankLine({
-	newline: {
-		value: '\n' as '\n',
-	},
+	newline: '\n',
 	raws: {
 		before: 'BEFORE__',
 	},

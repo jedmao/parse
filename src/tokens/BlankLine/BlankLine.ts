@@ -1,10 +1,10 @@
 import { SetOptional } from 'type-fest'
 
-import { Newline, NewlineAST, Token, Raws } from '..'
+import { Newline, Token, Raws } from '..'
 
 export interface BlankLineAST {
 	type: 'BlankLine'
-	newline: SetOptional<NewlineAST, 'type'>
+	newline: Newline
 	raws: Pick<Raws, 'before'>
 }
 
@@ -14,7 +14,7 @@ export class BlankLine implements Token {
 	public raws: BlankLineAST['raws']
 
 	public constructor(ast: SetOptional<BlankLineAST, 'type'>) {
-		this.newline = new Newline(ast.newline)
+		this.newline = ast.newline
 		this.raws = ast.raws
 	}
 
@@ -23,13 +23,13 @@ export class BlankLine implements Token {
 	}
 
 	public pretty() {
-		return this.newline.pretty()
+		return this.newline
 	}
 
 	public toAST(): BlankLineAST {
 		return {
 			type: this.type,
-			newline: this.newline.toAST(),
+			newline: this.newline,
 			raws: this.raws,
 		}
 	}

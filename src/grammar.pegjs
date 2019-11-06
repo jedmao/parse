@@ -25,13 +25,7 @@ BlankLine =
   }
 }
 
-Newline =
-  value:('\n' / '\r\n') {
-  return {
-    type: 'Newline',
-    value,
-  }
-}
+Newline = '\n' / '\r\n'
 
 Comment =
   before:_

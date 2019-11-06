@@ -1,11 +1,11 @@
 import { SetOptional } from 'type-fest'
 
-import { Newline, NewlineAST, Token, Raws } from '..'
+import { Newline, Token, Raws } from '..'
 
 export interface SectionHeaderAST {
 	type: 'SectionHeader'
 	name: NonNullable<string>
-	newline: SetOptional<NewlineAST, 'type'>
+	newline: Newline
 	raws: Raws
 }
 
@@ -17,7 +17,7 @@ export class SectionHeader implements Token {
 
 	public constructor(ast: SetOptional<SectionHeaderAST, 'type'>) {
 		this.name = ast.name
-		this.newline = new Newline(ast.newline)
+		this.newline = ast.newline
 		this.raws = ast.raws
 	}
 
@@ -33,14 +33,14 @@ export class SectionHeader implements Token {
 	}
 
 	public pretty() {
-		return `[${this.name}]${this.newline.pretty()}`
+		return `[${this.name}]${this.newline}`
 	}
 
 	public toAST(): SectionHeaderAST {
 		return {
 			type: this.type,
 			name: this.name,
-			newline: this.newline.toAST(),
+			newline: this.newline,
 			raws: this.raws,
 		}
 	}

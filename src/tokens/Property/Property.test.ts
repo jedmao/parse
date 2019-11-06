@@ -17,9 +17,7 @@ const instance = new Property({
 			after: '__AFTER_VALUE',
 		},
 	},
-	newline: {
-		value: '\n',
-	},
+	newline: '\n',
 })
 
 test('instance snapshot', t => {

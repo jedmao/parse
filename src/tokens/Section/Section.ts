@@ -63,7 +63,7 @@ export class Section implements Token {
 	public toAST(): SectionAST {
 		return {
 			type: this.type,
-			header: this.header,
+			header: this.header.toAST(),
 			children: this.children.map(node => node.toAST()),
 		}
 	}

@@ -5,9 +5,7 @@ import { Comment } from '..'
 const instance = new Comment({
 	indicator: ';',
 	value: 'VALUE',
-	newline: {
-		value: '\n',
-	},
+	newline: '\n',
 	raws: {
 		before: 'BEFORE__',
 	},

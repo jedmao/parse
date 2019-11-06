@@ -1,7 +1,6 @@
 import { EditorConfigINIAST } from './EditorConfigINI'
 import { BlankLineAST } from './BlankLine'
 import { CommentAST } from './Comment'
-import { NewlineAST } from './Newline'
 import { PropertyAST, PropertyNameAST, PropertyValueAST } from './Property'
 import { SectionAST, SectionHeaderAST } from './Section'
 
@@ -10,7 +9,6 @@ export interface Token {
 		| 'BlankLine'
 		| 'Comment'
 		| 'EditorConfigINI'
-		| 'Newline'
 		| 'Property'
 		| 'PropertyName'
 		| 'PropertyValue'
@@ -21,7 +19,6 @@ export interface Token {
 		| BlankLineAST
 		| CommentAST
 		| EditorConfigINIAST
-		| NewlineAST
 		| PropertyAST
 		| PropertyNameAST
 		| PropertyValueAST
@@ -34,3 +31,5 @@ export interface Raws {
 	before: NonNullable<string>
 	after: NonNullable<string>
 }
+
+export type Newline = '\n' | '\r\n'

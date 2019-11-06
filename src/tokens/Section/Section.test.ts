@@ -5,9 +5,7 @@ import { Section } from '..'
 const instance = new Section({
 	header: {
 		name: 'HEADER',
-		newline: {
-			value: '\n',
-		},
+		newline: '\n',
 		raws: {
 			before: 'BEFORE_HEADER__',
 			after: '__AFTER_HEADER',
@@ -18,18 +16,14 @@ const instance = new Section({
 			type: 'Comment',
 			indicator: ';',
 			value: 'COMMENT',
-			newline: {
-				value: '\n',
-			},
+			newline: '\n',
 			raws: {
 				before: 'BEFORE_COMMENT__',
 			},
 		},
 		{
 			type: 'BlankLine',
-			newline: {
-				value: '\n',
-			},
+			newline: '\n',
 			raws: {
 				before: 'BEFORE_BLANK_LINE__',
 			},
@@ -50,9 +44,7 @@ const instance = new Section({
 					after: '__AFTER_BAR',
 				},
 			},
-			newline: {
-				value: '\n',
-			},
+			newline: '\n',
 		},
 	],
 })
