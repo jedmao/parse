@@ -64,3 +64,21 @@ test('pretty() snapshot', t => {
 test('toAST()', t => {
 	t.snapshot(instance.toAST())
 })
+
+test('throws when given a child with { type: "Unsupported" }', t => {
+	t.throws(
+		() =>
+			new Section({
+				header: {
+					name: 'irrelevant',
+					newline: '\n',
+					raws: {
+						before: '',
+						after: '',
+					},
+				},
+				children: [{ type: 'Unsupported' } as any],
+			}),
+		'expected a Property, Comment or BlankLine',
+	)
+})

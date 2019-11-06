@@ -15,13 +15,6 @@ import {
 	SectionAST
 } from '..'
 
-const constructors = {
-	BlankLine,
-	Comment,
-	Property,
-	Section,
-}
-
 const parser = generate(
 	readFileSync(pathJoin(__dirname, '..', '..', 'grammar.pegjs')).toString(),
 )
@@ -40,8 +33,22 @@ export class EditorConfigINI implements Token {
 	public constructor(ast: SetOptional<EditorConfigINIAST, 'type'>) {
 		this.version = ast.version
 		this.children = ast.children.map(
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			node => new constructors[node.type](node as any),
+			node => {
+				switch (node.type) {
+					case 'Section':
+						return new Section(node)
+					case 'Property':
+						return new Property(node)
+					case 'Comment':
+						return new Comment(node)
+					case 'BlankLine':
+						return new BlankLine(node)
+					default:
+						throw new TypeError(
+							'expected a Property, Section, Comment or BlankLine'
+						)
+				}
+			},
 		)
 	}
 

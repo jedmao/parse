@@ -12,12 +12,6 @@ import {
 	Token,
 } from '..'
 
-const constructors = {
-	BlankLine,
-	Comment,
-	Property,
-}
-
 export interface SectionAST {
 	type: 'Section'
 	header: SetOptional<SectionHeaderAST, 'type'>
@@ -40,10 +34,18 @@ export class Section implements Token {
 
 	public constructor(ast: SetOptional<SectionAST, 'type'>) {
 		this.header = new SectionHeader(ast.header)
-		this.children = ast.children.map(
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			node => new constructors[node.type](node as any),
-		)
+		this.children = ast.children.map(node => {
+			switch (node.type) {
+				case 'Property':
+					return new Property(node)
+				case 'Comment':
+					return new Comment(node)
+				case 'BlankLine':
+					return new BlankLine(node)
+				default:
+					throw new TypeError('expected a Property, Comment or BlankLine')
+			}
+		})
 	}
 
 	public toString() {
