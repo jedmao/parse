@@ -37,29 +37,30 @@ test('parses a property', t => {
 	t.snapshot(EditorConfigINI.parse('foo=bar').children[0])
 })
 
-test('supports spaces in keys', t => {
-	const prop = EditorConfigINI.parse('spaces in keys=allowed')
+test('parses a property with spaces in key', t => {
+	const prop = EditorConfigINI.parse('spaces in key=allowed')
 		.children[0] as Property
-	t.is(prop.name.value, 'spaces in keys')
+	t.is(prop.name.value, 'spaces in key')
 })
 
 test('parses a property with whitespace all over and in-between', t => {
-	t.snapshot(EditorConfigINI.parse('\t\t   foo \t = \t bar  \t   \n')
-		.children[0] as Property)
+	t.snapshot(
+		EditorConfigINI.parse('\t\t   foo \t = \t bar  \t   \n').children[0],
+	)
 })
 
 test('parses blank lines', t => {
-	t.snapshot(EditorConfigINI.parse('\n').children[0] as BlankLine)
-	t.snapshot(EditorConfigINI.parse('\r\n').children[0] as BlankLine)
+	t.snapshot(EditorConfigINI.parse('\n').children[0])
+	t.snapshot(EditorConfigINI.parse('\r\n').children[0])
 })
 
 test('parses comments', t => {
-	t.snapshot(EditorConfigINI.parse('#').children[0] as Comment)
-	t.snapshot(EditorConfigINI.parse(';').children[0] as Comment)
+	t.snapshot(EditorConfigINI.parse('#').children[0])
+	t.snapshot(EditorConfigINI.parse(';').children[0])
 })
 
 test('parses a section', t => {
-	t.snapshot(EditorConfigINI.parse('[foo]').children[0] as Section)
+	t.snapshot(EditorConfigINI.parse('[foo]').children[0])
 })
 
 test('leading whitespace on each line is ignored', t => {
