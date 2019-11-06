@@ -1,4 +1,4 @@
-import { Except } from 'type-fest'
+import { SetOptional } from 'type-fest'
 
 import {
 	Newline,
@@ -12,9 +12,9 @@ import {
 
 export interface PropertyAST {
 	type: 'Property'
-	name: PropertyNameAST
-	value: PropertyValueAST
-	newline: NewlineAST
+	name: SetOptional<PropertyNameAST, 'type'>
+	value: SetOptional<PropertyValueAST, 'type'>
+	newline: SetOptional<NewlineAST, 'type'>
 }
 
 /**
@@ -31,7 +31,7 @@ export class Property implements Token {
 	public value: PropertyValue
 	public newline: Newline
 
-	public constructor(ast: Except<PropertyAST, 'type'>) {
+	public constructor(ast: SetOptional<PropertyAST, 'type'>) {
 		this.name = new PropertyName(ast.name)
 		this.value = new PropertyValue(ast.value)
 		this.newline = new Newline(ast.newline)
@@ -48,5 +48,14 @@ export class Property implements Token {
 			this.value.pretty() +
 			this.newline.pretty()
 		)
+	}
+
+	public toAST(): PropertyAST {
+		return {
+			type: this.type,
+			name: this.name.toAST(),
+			value: this.value.toAST(),
+			newline: this.newline.toAST(),
+		}
 	}
 }

@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs'
 import { join as pathJoin } from 'path'
 import { generate } from 'pegjs'
-import { Except } from 'type-fest'
+import { SetOptional } from 'type-fest'
 
 import { BlankLine, BlankLineAST, Comment, CommentAST, Token, Property, PropertyAST, Section, SectionAST } from '..'
 
@@ -27,7 +27,7 @@ export class EditorConfigINI implements Token {
 	public readonly version: NonNullable<string>
 	public children: Array<Property | Section | Comment | BlankLine>
 
-	public constructor(ast: Except<EditorConfigINIAST, 'type'>) {
+	public constructor(ast: SetOptional<EditorConfigINIAST, 'type'>) {
 		this.version = ast.version
 		this.children = ast.children.map(
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -66,6 +66,14 @@ export class EditorConfigINI implements Token {
 
 		function prettyNodes(nodes: Token[]) {
 			return nodes.map(node => node.pretty()).join('')
+		}
+	}
+
+	public toAST(): EditorConfigINIAST {
+		return {
+			type: this.type,
+			version: this.version,
+			children: this.children.map(token => token.toAST())
 		}
 	}
 }

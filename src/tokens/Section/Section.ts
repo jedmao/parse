@@ -1,4 +1,4 @@
-import { Except } from 'type-fest'
+import { SetOptional } from 'type-fest'
 
 import {
 	BlankLine,
@@ -20,7 +20,7 @@ const constructors = {
 
 export interface SectionAST {
 	type: 'Section'
-	header: SectionHeaderAST
+	header: SetOptional<SectionHeaderAST, 'type'>
 	children: Array<CommentAST | PropertyAST | BlankLineAST>
 }
 
@@ -38,7 +38,7 @@ export class Section implements Token {
 	public header: SectionHeader
 	public children: Array<Comment | Property | BlankLine>
 
-	public constructor(ast: Except<SectionAST, 'type'>) {
+	public constructor(ast: SetOptional<SectionAST, 'type'>) {
 		this.header = new SectionHeader(ast.header)
 		this.children = ast.children.map(
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -58,5 +58,13 @@ export class Section implements Token {
 				.map(node => node.pretty())
 				.join('')
 		)
+	}
+
+	public toAST(): SectionAST {
+		return {
+			type: this.type,
+			header: this.header,
+			children: this.children.map(node => node.toAST()),
+		}
 	}
 }

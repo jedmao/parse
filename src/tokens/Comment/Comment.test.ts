@@ -13,7 +13,7 @@ const instance = new Comment({
 	},
 })
 
-test('snapshot', t => {
+test('instance snapshot', t => {
 	t.snapshot(instance)
 })
 
@@ -23,4 +23,8 @@ test('toString() snapshot', t => {
 
 test('pretty() snapshot', t => {
 	t.snapshot(instance.pretty())
+})
+
+test('toAST()', t => {
+	t.snapshot(instance.toAST())
 })

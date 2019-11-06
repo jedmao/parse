@@ -1,4 +1,4 @@
-import { Except } from 'type-fest'
+import { SetOptional } from 'type-fest'
 
 import { Token } from '..'
 
@@ -11,7 +11,7 @@ export class Newline implements Token {
 	public readonly type = 'Newline'
 	public value: NewlineAST['value']
 
-	public constructor(ast: Except<NewlineAST, 'type'>) {
+	public constructor(ast: SetOptional<NewlineAST, 'type'>) {
 		this.value = ast.value
 	}
 
@@ -21,5 +21,12 @@ export class Newline implements Token {
 
 	public pretty() {
 		return this.value
+	}
+
+	public toAST(): NewlineAST {
+		return {
+			type: this.type,
+			value: this.value,
+		}
 	}
 }

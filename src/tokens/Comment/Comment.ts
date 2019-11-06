@@ -1,4 +1,4 @@
-import { Except } from 'type-fest'
+import { SetOptional } from 'type-fest'
 
 import { Newline, NewlineAST, Token, Raws } from '..'
 
@@ -6,7 +6,7 @@ export interface CommentAST {
 	type: 'Comment'
 	indicator: '#' | ';'
 	value: NonNullable<string>
-	newline: NewlineAST
+	newline: SetOptional<NewlineAST, 'type'>
 	raws: Pick<Raws, 'before'>
 }
 
@@ -17,7 +17,7 @@ export class Comment implements Token {
 	public newline: Newline
 	public raws: CommentAST['raws']
 
-	public constructor(ast: Except<CommentAST, 'type'>) {
+	public constructor(ast: SetOptional<CommentAST, 'type'>) {
 		this.indicator = ast.indicator
 		this.value = ast.value
 		this.newline = new Newline(ast.newline)
@@ -30,5 +30,15 @@ export class Comment implements Token {
 
 	public pretty() {
 		return this.indicator + this.value + this.newline.pretty()
+	}
+
+	public toAST(): CommentAST {
+		return {
+			type: this.type,
+			indicator: this.indicator,
+			value: this.value,
+			newline: this.newline.toAST(),
+			raws: this.raws,
+		}
 	}
 }

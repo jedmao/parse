@@ -25,4 +25,12 @@ export class PropertyValue implements Token {
 	public pretty() {
 		return this.value.toString()
 	}
+
+	public toAST(): PropertyValueAST {
+		return {
+			type: this.type,
+			value: this.value,
+			raws: this.raws,
+		}
+	}
 }

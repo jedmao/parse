@@ -25,4 +25,12 @@ export class PropertyName implements Token {
 	public pretty() {
 		return this.value
 	}
+
+	public toAST(): PropertyNameAST {
+		return {
+			type: this.type,
+			value: this.value,
+			raws: this.raws,
+		}
+	}
 }

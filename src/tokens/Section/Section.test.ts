@@ -9,13 +9,55 @@ const instance = new Section({
 			value: '\n',
 		},
 		raws: {
-			before: 'BEFORE__',
-			after: '__AFTER',
+			before: 'BEFORE_HEADER__',
+			after: '__AFTER_HEADER',
 		},
 	},
+	children: [
+		{
+			type: 'Comment',
+			indicator: ';',
+			value: 'COMMENT',
+			newline: {
+				value: '\n',
+			},
+			raws: {
+				before: 'BEFORE_COMMENT__',
+			},
+		},
+		{
+			type: 'BlankLine',
+			newline: {
+				value: '\n',
+			},
+			raws: {
+				before: 'BEFORE_BLANK_LINE__',
+			},
+		},
+		{
+			type: 'Property',
+			name: {
+				value: 'foo',
+				raws: {
+					before: 'BEFORE_FOO__',
+					after: '__AFTER_FOO',
+				},
+			},
+			value: {
+				value: 'bar',
+				raws: {
+					before: 'BEFORE_BAR__',
+					after: '__AFTER_BAR',
+				},
+			},
+			newline: {
+				value: '\n',
+			},
+		},
+	],
 })
 
-test('snapshot', t => {
+test('instance snapshot', t => {
 	t.snapshot(instance)
 })
 
@@ -25,4 +67,8 @@ test('toString() snapshot', t => {
 
 test('pretty() snapshot', t => {
 	t.snapshot(instance.pretty())
+})
+
+test('toAST()', t => {
+	t.snapshot(instance.toAST())
 })
