@@ -68,16 +68,12 @@
       "prettier"
     ],
     "rules": {
-      "capitalized-comments": "off",
-      "@typescript-eslint/explicit-function-return-type": "off",
-      "@typescript-eslint/no-use-before-define": "off",
-      "@typescript-eslint/restrict-plus-operands": "off"
+      "@typescript-eslint/explicit-function-return-type": "off"
     },
     "overrides": [
       {
         "files": "src/**/*.test.ts",
         "rules": {
-          "@typescript-eslint/ban-ts-ignore": "off",
           "@typescript-eslint/no-explicit-any": "off"
         }
       }
@@ -134,10 +130,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@types/pegjs": "^0.10.1",
-    "pegjs": "^0.10.0",
-    "tslib": "^1",
-    "type-fest": "^0.8.1"
+    "tslib": "^1"
   },
   "devDependencies": {
     "@commitlint/cli": "^8",
@@ -150,7 +143,7 @@
     "commitizen": "^4",
     "cz-conventional-changelog": "^3",
     "eslint": "^6",
-    "eslint-config-prettier": "^6",
+    "eslint-config-prettier": "^6.3.0",
     "eslint-config-xo": "^0",
     "eslint-config-xo-typescript": "^0",
     "eslint-plugin-prettier": "^3",
@@ -162,6 +155,6 @@
     "semantic-release": "^15",
     "ts-node": "^8",
     "tsconfig-paths": "^3",
-    "typescript": "^3.7.1-rc"
+    "typescript": "^3.7.2"
   }
 }
